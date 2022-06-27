@@ -1,6 +1,6 @@
 ## Box 4: Responder
 
-![](img/1.png)
+
  <img src="img/1.png" class="center">
 
 This Box is tagged "SAMBA", "Enumeration", "Apache" and "WinRM". 
