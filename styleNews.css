@@ -1,0 +1,30 @@
+html,
+body,
+.content {
+  background-color: rgb(19, 19, 19);
+  height: 100%;
+  margin-top: 10%;
+}
+
+.profile-row {
+  margin-bottom: 40px;
+}
+
+
+.profile-pic {
+  height: 50px;
+  width: 50px;
+}
+
+.post-time {
+
+  color: #90949c;
+}
+
+.blue-icon {
+  color: #0099ff;
+}
+
+.no-outline {
+  border-color: white !important;
+}
